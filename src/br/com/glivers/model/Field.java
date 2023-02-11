@@ -88,21 +88,27 @@ public class Field {
         return opened || marked;
     }
 
-    public int checkNeighborhood() {
-        return (int) this.neighborhood.stream().filter(Field::isMine).count();
+    public Long checkNeighborhood() {
+        return this.neighborhood.stream().filter(Field::isMine).count();
     }
 
-    public void reset(){
+    public void reset() {
         this.mine = false;
         this.open = false;
         this.flag = false;
     }
 
     public String toString(){
-        if(this.flag){
-            return "X";
+        if(this.flag && !this.open){
+            return "!";
+        }else if(this.open && this.mine){
+            return "*";
+        }else if(this.open && this.checkNeighborhood() > 0){
+            return Long.toString(this.checkNeighborhood());
+        }else if(this.open){
+            return " ";
         }else{
-            return "";
+            return "?";
         }
     }
 }
