@@ -24,17 +24,23 @@ public class Board {
     }
 
     public void openField(int columnSearch, int rowSearch) {
-        fields
-            .parallelStream()
-            .filter(field -> field.getCol() == columnSearch && field.getRow() == rowSearch)
-            .findFirst().ifPresent(Field::openField);
+        try {
+            fields
+                    .parallelStream()
+                    .filter(field -> field.getCol() == columnSearch && field.getRow() == rowSearch)
+                    .findFirst().ifPresent(Field::openField);
+
+        } catch (Exception e) {
+            fields.forEach(field -> field.setOpen(true));
+            throw e;
+        }
     }
 
     public void markField(int columnSearch, int rowSearch) {
         fields
-            .parallelStream()
-            .filter(field -> field.getCol() == columnSearch && field.getRow() == rowSearch)
-            .findFirst().ifPresent(Field::toggleFlag);
+                .parallelStream()
+                .filter(field -> field.getCol() == columnSearch && field.getRow() == rowSearch)
+                .findFirst().ifPresent(Field::toggleFlag);
     }
 
     @Override
@@ -46,7 +52,8 @@ public class Board {
             board.append("[");
             board.append(column);
             board.append("]");
-        };
+        }
+        ;
         board.append("\n");
         for (int column = 0; column < columns; column++) {
             board.append("[");

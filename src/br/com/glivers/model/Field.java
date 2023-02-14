@@ -33,6 +33,7 @@ public class Field {
         }
         return false;
     }
+    
 
     public boolean isOpen() {
         return open;
@@ -115,5 +116,13 @@ public class Field {
         } else {
             return "?";
         }
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    public void setNeighborhood(List<Field> neighborhood) {
+        this.neighborhood = neighborhood;
     }
 }
