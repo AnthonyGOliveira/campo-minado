@@ -41,7 +41,17 @@ public class Board {
     public String toString() {
         StringBuilder board = new StringBuilder();
         int element = 0;
+        board.append("   ");
         for (int column = 0; column < columns; column++) {
+            board.append("[");
+            board.append(column);
+            board.append("]");
+        };
+        board.append("\n");
+        for (int column = 0; column < columns; column++) {
+            board.append("[");
+            board.append(column);
+            board.append("]");
             for (int row = 0; row < rows; row++) {
                 board.append("[");
                 board.append(fields.get(element));

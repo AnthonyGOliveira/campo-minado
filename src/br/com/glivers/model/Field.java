@@ -20,10 +20,15 @@ public class Field {
     }
 
     public boolean addNeighborhood(Field neighborhood) {
+        boolean columnIsDifferent = neighborhood.getCol() != this.col;
+        boolean rowIsDifferent = neighborhood.getRow() != this.row;
+        boolean isDiagonal = columnIsDifferent && rowIsDifferent;
+
         int colResult = Math.abs(this.col - neighborhood.getCol());
         int rowResult = Math.abs(this.row - neighborhood.getRow());
         int finalResult = colResult + rowResult;
-        if (finalResult > 0 && finalResult < 3) {
+
+        if ((finalResult == 1 && !isDiagonal) || (finalResult == 2 && isDiagonal)) {
             return this.neighborhood.add(neighborhood);
         }
         return false;
@@ -98,16 +103,16 @@ public class Field {
         this.flag = false;
     }
 
-    public String toString(){
-        if(this.flag && !this.open){
+    public String toString() {
+        if (this.flag && !this.open) {
             return "!";
-        }else if(this.open && this.mine){
+        } else if (this.open && this.mine) {
             return "*";
-        }else if(this.open && this.checkNeighborhood() > 0){
+        } else if (this.open && this.checkNeighborhood() > 0) {
             return Long.toString(this.checkNeighborhood());
-        }else if(this.open){
+        } else if (this.open) {
             return " ";
-        }else{
+        } else {
             return "?";
         }
     }
